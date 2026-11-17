@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PIXEL GRAMMAR QUEST</title>
+<title>MISI TATABAHASA PIKSEL</title>
 <style>
 /* ===== Tema pixel arked hijau ===== */
 :root{--bg:#010a04;--pn:#06190e;--g:#39ff6a;--gd:#0a5c22;--gm:#b6ffcf;--x:#ff7a7a}
@@ -73,7 +73,7 @@ p{margin:8px 0}
 <!-- A. MENU UTAMA -->
 <section class="s on" id="s-menu">
   <div id="sprite"></div>
-  <h1>PIXEL GRAMMAR<br>QUEST</h1>
+  <h1>MISI TATABAHASA<br>PIKSEL</h1>
   <p class="sub">Gerakkan jari, cubit jawapan, kuasai tatabahasa!</p>
   <button class="btn" id="bMula">MULA PERMAINAN</button>
   <button class="btn" data-go="cara">CARA BERMAIN</button>
@@ -119,7 +119,7 @@ p{margin:8px 0}
   <button class="btn" id="bAktif">AKTIFKAN KAMERA</button>
   <button class="btn" id="bMulaK" style="display:none">MULA</button>
   <button class="btn p" id="bMati1" style="display:none">MATIKAN KAMERA</button>
-  <button class="btn" id="bTab" style="display:none">BUKA DALAM TAB BAHARU</button>
+  <button class="btn" id="bTab" style="display:none">BUKA DALAM LAMAN BAHARU</button>
   <button class="btn p" id="bTetikus">GUNA TETIKUS DAN SENTUH</button>
   <button class="btn p" data-go="menu">MENU UTAMA</button>
 </section>
@@ -226,7 +226,7 @@ async function aktifkan(){
   stat('Meminta kebenaran kamera... sila pilih "Benarkan".');
   try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640},height:{ideal:480}},audio:false})}
   catch(e){const n=e&&e.name;
-    stat(n==='NotAllowedError'||n==='SecurityError'?'Kebenaran kamera ditolak atau disekat. Benarkan kamera pada bar alamat. Jika permainan ini dibenamkan dalam Google Sites, kamera mungkin disekat; cuba buka dalam tab baharu atau guna tetikus dan sentuh.':n==='NotFoundError'?'Kamera tidak ditemui. Sila guna tetikus dan sentuh.':n==='NotReadableError'?'Kamera sedang digunakan oleh aplikasi lain. Tutup aplikasi itu dan cuba lagi.':'Kamera tidak dapat diaktifkan. Sila guna tetikus dan sentuh.',true);
+    stat(n==='NotAllowedError'||n==='SecurityError'?'Kebenaran kamera ditolak atau disekat. Benarkan kamera pada bar alamat. Jika permainan ini dibenamkan dalam Google Sites, kamera mungkin disekat; cuba buka dalam laman baharu atau guna tetikus dan sentuh.':n==='NotFoundError'?'Kamera tidak ditemui. Sila guna tetikus dan sentuh.':n==='NotReadableError'?'Kamera sedang digunakan oleh aplikasi lain. Tutup aplikasi itu dan cuba lagi.':'Kamera tidak dapat diaktifkan. Sila guna tetikus dan sentuh.',true);
     b.disabled=false;pilihTab();return}
   [$('#v1'),$('#v2')].forEach(v=>{v.srcObject=stream;v.play().catch(()=>{})});
   stat('Kamera Diaktifkan. Memuatkan sistem pengesanan tangan, sila tunggu...');
