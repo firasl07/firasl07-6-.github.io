@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIXEL GRAMMAR QUEST</title>
+<style>
+/* ===== Tema pixel arked hijau ===== */
+:root{--bg:#010a04;--pn:#06190e;--g:#39ff6a;--gd:#0a5c22;--gm:#b6ffcf;--x:#ff7a7a}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:#fff;font-family:"Courier New",Courier,monospace;font-weight:700;font-size:16px;line-height:1.5;display:flex;justify-content:center;padding:12px;min-height:100vh;
+background-image:linear-gradient(rgba(57,255,106,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(57,255,106,.08) 1px,transparent 1px);background-size:22px 22px}
+#app{width:100%;max-width:760px}
+.s{display:none;text-align:center;animation:masuk .3s steps(4)}
+.s.on{display:block}
+@keyframes masuk{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+h1{font-size:clamp(24px,7vw,46px);line-height:1.2;letter-spacing:2px;color:#fff;margin:10px 0 8px;text-shadow:0 0 6px var(--g),0 0 18px var(--g),0 0 34px var(--g),3px 3px 0 var(--gd)}
+h2{font-size:clamp(20px,5vw,28px);color:var(--g);text-shadow:0 0 10px var(--g);margin:12px 0}
+p{margin:8px 0}
+.sub{color:var(--gm);font-size:clamp(14px,3.6vw,18px);margin-bottom:12px}
+#sprite{width:8px;height:8px;margin:14px auto 90px;animation:apung 1s steps(2) infinite}
+@keyframes apung{50%{transform:translateY(8px)}}
+.btn{display:block;width:100%;max-width:380px;margin:12px auto;font:inherit;font-size:clamp(14px,3.6vw,17px);letter-spacing:1px;padding:14px 12px;cursor:pointer;color:var(--g);background:var(--pn);border:4px solid var(--g);box-shadow:0 0 12px var(--g),inset 0 0 10px rgba(57,255,106,.12);text-shadow:0 0 8px var(--g);transition:transform .08s}
+.btn:hover,.btn:focus-visible,.btn.hov{background:var(--g);color:#021a0c;text-shadow:none;outline:none}
+.btn:active{transform:translateY(3px)}
+.btn[disabled]{opacity:.4;cursor:default}
+.btn.p{border-color:#fff;color:#fff;box-shadow:0 0 10px #fff;text-shadow:none}
+.btn.p:hover,.btn.p.hov{background:#fff;color:#021a0c}
+.kotak{background:var(--pn);border:4px solid var(--g);box-shadow:0 0 16px rgba(57,255,106,.5);padding:14px 16px;margin:12px 0;text-align:left}
+.kotak li{margin:8px 0 8px 22px}
+.kotak.c{text-align:center}
+.kecil{font-size:14px;font-weight:400;color:var(--gm)}
+.hud{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--pn);border:4px solid var(--g);padding:8px;font-size:13px}
+.hud b{display:block;font-size:20px;color:var(--g)}
+#bar{height:14px;border:3px solid var(--g);margin:8px 0}
+#bar i{display:block;height:100%;width:0;background:var(--g);box-shadow:0 0 10px var(--g);transition:width .4s steps(8)}
+#tanya{font-size:clamp(17px,4.6vw,24px);line-height:1.45;color:#fff;min-height:70px;display:grid;place-items:center;text-shadow:0 0 8px rgba(57,255,106,.6)}
+.ops{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.op{max-width:none;margin:0;min-height:92px;text-align:left;display:flex;align-items:center;gap:10px;font-size:clamp(15px,4vw,20px);word-break:break-word}
+.op span{flex:none;display:grid;place-items:center;width:34px;height:34px;border:3px solid currentColor}
+.op.bt{background:var(--g);color:#021a0c;text-shadow:none}
+.op.sl{background:var(--x);border-color:var(--x);color:#021a0c;text-shadow:none;box-shadow:0 0 12px var(--x)}
+#fb{display:none;padding:12px;border:4px solid var(--g);background:var(--pn);text-align:left;box-shadow:0 0 14px var(--g)}
+#fb.on{display:block}
+#fb.x{border-color:var(--x);box-shadow:0 0 14px var(--x)}
+#fbt{font-size:clamp(20px,5.5vw,28px);color:var(--g);text-shadow:0 0 10px var(--g);animation:letup .4s steps(4)}
+#fb.x #fbt{color:var(--x);text-shadow:none}
+@keyframes letup{0%{transform:scale(.5)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.fbl{font-weight:400;font-size:15px;margin:5px 0}
+.vw{position:relative;transform:scaleX(-1);background:#000;border:4px solid var(--g);box-shadow:0 0 14px var(--g);aspect-ratio:4/3}
+.vw video,.vw canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#camBesar{max-width:420px;margin:10px auto}
+#mini{position:fixed;right:10px;bottom:10px;width:150px;z-index:20;display:none;background:var(--bg)}
+#mini .vw{border-width:3px}
+#mini div.kecil{font-size:11px;text-align:center;padding:2px}
+.stat{min-height:44px;font-size:14px;font-weight:400;color:var(--gm);margin:6px 0}
+.stat.er{color:var(--x)}
+#kursor{position:fixed;left:0;top:0;width:30px;height:30px;border:4px solid #fff;background:rgba(57,255,106,.35);box-shadow:0 0 12px var(--g),0 0 0 3px var(--g);z-index:60;pointer-events:none;display:none}
+#kursor.cb{background:var(--g);border-color:var(--g);box-shadow:0 0 18px #fff;width:22px;height:22px}
+#skor{font-size:clamp(40px,12vw,72px);color:var(--g);text-shadow:0 0 14px var(--g);margin:6px 0}
+#gelar{font-size:clamp(20px,5.6vw,30px);color:#fff;text-shadow:0 0 10px var(--g)}
+.px{position:fixed;width:10px;height:10px;pointer-events:none;z-index:55;background:var(--g);box-shadow:0 0 6px var(--g);animation:terbang 1s steps(10) forwards}
+@keyframes terbang{to{transform:translate(var(--x),var(--y));opacity:0}}
+.kilat{animation:kl .5s steps(3)}
+@keyframes kl{0%{box-shadow:inset 0 0 0 100vmax var(--k)}}
+@media (max-width:520px){.ops{grid-template-columns:1fr}.op{min-height:72px}#mini{width:110px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main id="app">
+
+<!-- A. MENU UTAMA -->
+<section class="s on" id="s-menu">
+  <div id="sprite"></div>
+  <h1>PIXEL GRAMMAR<br>QUEST</h1>
+  <p class="sub">Gerakkan jari, cubit jawapan, kuasai tatabahasa!</p>
+  <button class="btn" id="bMula">MULA PERMAINAN</button>
+  <button class="btn" data-go="cara">CARA BERMAIN</button>
+  <button class="btn" data-go="tetapan">TETAPAN</button>
+</section>
+
+<section class="s" id="s-cara">
+  <h2>CARA BERMAIN</h2>
+  <div class="kotak"><ul>
+    <li>Aktifkan kamera dan benarkan akses apabila pelayar bertanya.</li>
+    <li>Angkat satu tangan di hadapan kamera. Pastikan tapak tangan kelihatan.</li>
+    <li>Gerakkan <b>jari telunjuk</b>. Kursor hijau pada skrin akan mengikut jari anda.</li>
+    <li>Letakkan kursor pada jawapan A, B, C atau D.</li>
+    <li><b>Cubit</b> (rapatkan ibu jari dengan jari telunjuk) untuk memilih jawapan.</li>
+    <li>Cubitan juga boleh menekan semua butang lain dalam permainan.</li>
+    <li>10 soalan. Betul +10 mata. Selepas setiap soalan, baca penerangan dan teruskan.</li>
+    <li>Tiada kamera? Gunakan tetikus atau sentuh skrin. Semua butang berfungsi seperti biasa.</li>
+    <li><b>Privasi:</b> video diproses dalam pelayar sahaja. Tiada rakaman disimpan atau dihantar.</li>
+  </ul></div>
+  <button class="btn p" data-go="menu">MENU UTAMA</button>
+</section>
+
+<section class="s" id="s-tetapan">
+  <h2>TETAPAN</h2>
+  <button class="btn" id="bKawal"></button>
+  <button class="btn" id="bKep"></button>
+  <button class="btn" id="bBunyi"></button>
+  <p class="kecil">Jika cubitan sukar dikesan, tingkatkan kepekaan cubit.</p>
+  <button class="btn p" data-go="menu">MENU UTAMA</button>
+</section>
+
+<!-- B. HALAMAN KAMERA -->
+<section class="s" id="s-kamera">
+  <h2>HALAMAN KAMERA</h2>
+  <div class="kotak c kecil" style="color:#fff">Kamera hanya digunakan untuk mengesan tangan anda. Video diproses dalam pelayar ini sahaja dan tidak dirakam, disimpan atau dihantar ke pelayan.</div>
+  <div class="vw" id="camBesar"><video id="v1" muted playsinline></video><canvas id="c1"></canvas></div>
+  <div class="stat" id="st1">Kamera belum diaktifkan.</div>
+  <div class="kotak kecil" style="color:#fff"><ul>
+    <li>Gerakkan jari telunjuk untuk menggerakkan kursor.</li>
+    <li>Cubit (ibu jari + jari telunjuk) untuk memilih.</li>
+  </ul></div>
+  <button class="btn p" id="bUji">UJIAN CUBIT: CUBIT DI SINI</button>
+  <button class="btn" id="bAktif">AKTIFKAN KAMERA</button>
+  <button class="btn" id="bMulaK" style="display:none">MULA</button>
+  <button class="btn p" id="bMati1" style="display:none">MATIKAN KAMERA</button>
+  <button class="btn" id="bTab" style="display:none">BUKA DALAM TAB BAHARU</button>
+  <button class="btn p" id="bTetikus">GUNA TETIKUS DAN SENTUH</button>
+  <button class="btn p" data-go="menu">MENU UTAMA</button>
+</section>
+
+<!-- C. HALAMAN PERMAINAN -->
+<section class="s" id="s-main">
+  <div class="hud"><div>Markah<b id="hSkor">0</b></div><div>Soalan<b id="hSoal">1/10</b></div></div>
+  <div id="bar"><i></i></div>
+  <div class="kotak c"><div id="tanya"></div></div>
+  <div class="ops" id="ops"></div>
+  <div id="fb"><div id="fbt"></div><div class="fbl" id="fb1"></div><div class="fbl" id="fb2"></div><button class="btn" id="nxt" style="margin-bottom:0"></button></div>
+  <p class="kecil" id="petunjuk" style="margin-top:14px"></p>
+  <button class="btn p" id="bMati2" style="font-size:13px;max-width:240px;display:none">MATIKAN KAMERA</button>
+  <button class="btn p" data-go="menu" style="font-size:13px;max-width:240px">MENU UTAMA</button>
+</section>
+
+<!-- D. HALAMAN KEPUTUSAN -->
+<section class="s" id="s-tamat">
+  <h2>KEPUTUSAN</h2>
+  <div id="skor">0</div>
+  <p>markah anda</p>
+  <div class="kotak c"><div id="gelar"></div><p id="galak"></p><p id="ringkas" class="kecil"></p></div>
+  <button class="btn" id="bUlang">MAIN SEMULA</button>
+  <button class="btn p" data-go="menu">MENU UTAMA</button>
+</section>
+
+</main>
+
+<!-- Pratonton kamera kecil (semua halaman selain halaman kamera) -->
+<div id="mini"><div class="vw"><video id="v2" muted playsinline></video><canvas id="c2"></canvas></div><div class="kecil" id="st2">Tiada tangan</div></div>
+<!-- Kursor maya jari telunjuk -->
+<div id="kursor"></div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const LIB='https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14';
+const MODEL='https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task';
+
+/* ===== Bank soalan: soalan|betul|salah1|salah2|salah3|penerangan ===== */
+const BANK=`Pilih ayat yang betul.|Mereka sedang bermain bola.|Mereka-mereka sedang bermain bola.|Bermain sedang mereka bola.|Mereka bola sedang bermain.|«Mereka» sudah menunjukkan jamak, maka tidak perlu digandakan. Susunan ayat juga mesti mengikut subjek, predikat dan objek.
+Pilih ayat yang betul.|Ali sangat pandai.|Ali sangat pandai sekali.|Ali amat sangat pandai.|Ali sekali sangat pandai.|Satu kata penguat sudah cukup. «Sangat» dan «sekali» tidak digunakan bersama.
+Kenal pasti kesalahan dalam ayat «Buku itu di baca oleh Ali.» Pilih pembetulan yang betul.|Buku itu dibaca oleh Ali.|Buku itu di-baca oleh Ali.|Buku itu dibacaoleh Ali.|Buku itu di baca-oleh Ali.|Awalan «di-» dirapatkan pada kata kerja, maka «dibaca» dieja serangkai.
+Pilih kata nama yang tepat: «___ sedang mengajar di dalam kelas.»|Cikgu|Cantik|Berlari|Dengan|«Cikgu» ialah kata nama. «Cantik» ialah kata adjektif, «berlari» ialah kata kerja dan «dengan» ialah kata sendi nama.
+Pilih kata kerja yang betul: «Adik ___ buku cerita setiap malam.»|membaca|pembaca|bacaan|dibaca|«Membaca» ialah kata kerja aktif yang sesuai dengan subjek «adik».
+Pilih ayat yang TIDAK gramatis.|Para-para murid berbaris di dewan.|Ibu memasak nasi di dapur.|Adik menulis surat kepada nenek.|Kami pergi ke pasar.|«Para» sudah menunjukkan jamak, maka «para-para» tidak betul. Ayat yang betul: Para murid berbaris di dewan.
+Pilih kata hubung yang sesuai: «Saya belajar dengan rajin ___ lulus peperiksaan.»|supaya|tetapi|atau|walaupun|«Supaya» menyatakan tujuan, maka sesuai dengan maksud ayat ini.
+Pilih kata hubung yang sesuai: «Dia sakit, ___ dia tetap hadir ke sekolah.»|tetapi|supaya|kerana|jika|«Tetapi» menyatakan pertentangan antara keadaan sakit dengan tetap hadir.
+Pilih ayat yang betul.|Buku itu saya baca semalam.|Buku itu dibaca oleh saya semalam.|Buku itu saya dibaca semalam.|Buku itu membaca saya semalam.|Dalam ayat pasif dengan kata ganti nama diri pertama, kata kerja tidak menggunakan «di-».
+Pilih penggunaan yang betul: «Buku itu terletak ___ meja.»|di atas|diatas|ke atas|dari atas|«Di atas» dieja terpisah kerana «di» ialah kata sendi nama yang menunjukkan tempat.
+Pilih kata sendi nama yang betul: «Dia lebih tinggi ___ abangnya.»|daripada|dari pada|kepada|pada|Untuk perbandingan, gunakan «daripada» yang dieja serangkai.
+Pilih ayat yang betul.|Ramai pelajar hadir ke majlis itu.|Ramai pelajar-pelajar hadir ke majlis itu.|Ramai para pelajar-pelajar hadir ke majlis itu.|Ramai hadir pelajar-pelajar majlis itu.|«Ramai» sudah menunjukkan jamak, maka kata nama tidak perlu digandakan.
+Kenal pasti pembetulan bagi ayat «Dia membincangkan tentang perkara itu.»|Dia membincangkan perkara itu.|Dia membincang tentang perkara itu.|Dia dibincangkan perkara itu.|Dia membincangkan akan tentang perkara itu.|«Membincangkan» sudah bermakna berbual tentang sesuatu, maka «tentang» berlebihan.`
+.split('\n').map(l=>{const p=l.split('|');return{q:p[0],b:p[1],o:p.slice(1,5),e:p[5]}});
+
+/* ===== Tetapan (dalam ingatan sahaja) ===== */
+const S={kawal:'tangan',kep:1,bunyi:true};
+const KN=['RENDAH','SEDERHANA','TINGGI'],AMBANG=[.18,.25,.32];
+function tetapan(){$('#bKawal').textContent='KAWALAN: '+(S.kawal==='tangan'?'TANGAN (KAMERA)':'TETIKUS DAN SENTUH');$('#bKep').textContent='KEPEKAAN CUBIT: '+KN[S.kep];$('#bBunyi').textContent='KESAN BUNYI: '+(S.bunyi?'HIDUP':'MATI')}
+$('#bKawal').onclick=()=>{S.kawal=S.kawal==='tangan'?'tetikus':'tangan';tetapan()};
+$('#bKep').onclick=()=>{S.kep=(S.kep+1)%3;tetapan()};
+$('#bBunyi').onclick=()=>{S.bunyi=!S.bunyi;tetapan();bunyi('klik')};
+
+/* ===== Bunyi arked ===== */
+let ac;
+function nada(f,d,t,v,w){try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume();w=w||0;const o=ac.createOscillator(),g=ac.createGain(),T=ac.currentTime+w;o.type=t||'square';o.frequency.value=f;g.gain.setValueAtTime(v||.05,T);g.gain.exponentialRampToValueAtTime(.0001,T+d);o.connect(g);g.connect(ac.destination);o.start(T);o.stop(T+d)}catch(e){}}
+function bunyi(k){if(!S.bunyi)return;
+  if(k==='betul')[523,659,784,1047].forEach((f,i)=>nada(f,.13,'square',.06,i*.07));
+  else if(k==='salah')[220,175,131].forEach((f,i)=>nada(f,.2,'sawtooth',.05,i*.12));
+  else if(k==='tamat')[392,523,659,784,1047,1319].forEach((f,i)=>nada(f,.18,'square',.06,i*.1));
+  else nada(660,.06,'square',.04)}
+
+/* ===== Watak piksel pada menu ===== */
+(function(){const P=['..#.#.#...','..#.#.#.#.','..#.#.#.#.','#.########','##########','.#########','.#########','..########','...######.','....####..'],s=[];
+  P.forEach((r,y)=>[...r].forEach((c,x)=>{if(c==='#')s.push(x*8+'px '+y*8+'px 0 '+(y<3?'#fff':'#39ff6a'))}));
+  $('#sprite').style.boxShadow=s.join(',')})();
+
+/* ===== Navigasi ===== */
+let aktif=false,stream=null,hl=null,raf=0;
+function show(id){document.querySelectorAll('.s').forEach(s=>s.classList.toggle('on',s.id==='s-'+id));window.scrollTo(0,0);
+  if(id==='tetapan')tetapan();if(id==='kamera')kemasKamera();semakMini()}
+document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){bunyi('klik');show(g.dataset.go)}});
+$('#bMula').onclick=()=>{bunyi('klik');if(S.kawal==='tangan'&&!aktif)show('kamera');else mulaGame()};
+$('#bMulaK').onclick=()=>{bunyi('klik');mulaGame()};
+$('#bTetikus').onclick=()=>{bunyi('klik');S.kawal='tetikus';mulaGame()};
+$('#bTab').onclick=()=>{try{window.open(location.href,'_blank')}catch(e){}};
+let ujiN=0;$('#bUji').onclick=()=>{ujiN++;bunyi('betul');$('#bUji').textContent='CUBITAN DIKESAN: '+ujiN+' (CUBA LAGI)'};
+function semakMini(){$('#mini').style.display=aktif&&!$('#s-kamera').classList.contains('on')?'block':'none';$('#bMati2').style.display=aktif?'block':'none'}
+function kemasKamera(){$('#bAktif').style.display=aktif?'none':'block';$('#bMati1').style.display=aktif?'block':'none';$('#bMulaK').style.display=aktif?'block':'none'}
+function stat(t,er){const e=$('#st1');e.textContent=t;e.classList.toggle('er',!!er)}
+
+/* ===== Kamera dan model pengesanan tangan ===== */
+async function muatModel(){
+  if(hl)return;
+  const m=await import(LIB+'/vision_bundle.mjs');
+  const fs=await m.FilesetResolver.forVisionTasks(LIB+'/wasm');
+  const buat=d=>m.HandLandmarker.createFromOptions(fs,{baseOptions:{modelAssetPath:MODEL,delegate:d},runningMode:'VIDEO',numHands:1});
+  try{hl=await buat('GPU')}catch(e){hl=await buat('CPU')}
+}
+async function aktifkan(){
+  const b=$('#bAktif');b.disabled=true;$('#bTab').style.display='none';
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+    stat('Kamera tidak boleh digunakan di sini. Pastikan laman dibuka melalui HTTPS. Anda boleh menggunakan tetikus atau sentuh.',true);b.disabled=false;pilihTab();return}
+  stat('Meminta kebenaran kamera... sila pilih "Benarkan".');
+  try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640},height:{ideal:480}},audio:false})}
+  catch(e){const n=e&&e.name;
+    stat(n==='NotAllowedError'||n==='SecurityError'?'Kebenaran kamera ditolak atau disekat. Benarkan kamera pada bar alamat. Jika permainan ini dibenamkan dalam Google Sites, kamera mungkin disekat; cuba buka dalam tab baharu atau guna tetikus dan sentuh.':n==='NotFoundError'?'Kamera tidak ditemui. Sila guna tetikus dan sentuh.':n==='NotReadableError'?'Kamera sedang digunakan oleh aplikasi lain. Tutup aplikasi itu dan cuba lagi.':'Kamera tidak dapat diaktifkan. Sila guna tetikus dan sentuh.',true);
+    b.disabled=false;pilihTab();return}
+  [$('#v1'),$('#v2')].forEach(v=>{v.srcObject=stream;v.play().catch(()=>{})});
+  stat('Kamera Diaktifkan. Memuatkan sistem pengesanan tangan, sila tunggu...');
+  try{await muatModel()}catch(e){matikan();stat('Sistem pengesanan tangan gagal dimuatkan. Semak sambungan internet atau guna tetikus dan sentuh.',true);b.disabled=false;return}
+  aktif=true;S.kawal='tangan';b.disabled=false;kemasKamera();semakMini();stat('Kamera Diaktifkan. Angkat tangan anda di hadapan kamera.');gelung();
+}
+function pilihTab(){if(window.top!==window)$('#bTab').style.display='block'}
+$('#bAktif').onclick=aktifkan;
+function matikan(){
+  aktif=false;cancelAnimationFrame(raf);
+  if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}
+  [$('#v1'),$('#v2')].forEach(v=>v.srcObject=null);
+  $('#kursor').style.display='none';bersih();
+  stat('Kamera dimatikan. Tiada rakaman disimpan.');kemasKamera();semakMini();
+  if($('#s-main').classList.contains('on'))$('#petunjuk').textContent='Kamera dimatikan. Gunakan tetikus atau sentuh skrin.';
+}
+$('#bMati1').onclick=matikan;$('#bMati2').onclick=matikan;
+window.addEventListener('pagehide',()=>{if(stream)stream.getTracks().forEach(t=>t.stop())});
+
+/* ===== Gelung pengesanan tangan: kursor + cubitan ===== */
+const SAMB=[[0,1],[1,2],[2,3],[3,4],[0,5],[5,6],[6,7],[7,8],[5,9],[9,10],[10,11],[11,12],[9,13],[13,14],[14,15],[15,16],[13,17],[17,18],[18,19],[19,20],[0,17]];
+let cx=null,cy=null,hist=[],pin=false,tsA=0,tiada=0,lastKlik=0,hovEl=null;
+function bersih(){[$('#c1'),$('#c2')].forEach(c=>c.getContext('2d').clearRect(0,0,c.width,c.height));if(hovEl){hovEl.classList.remove('hov');hovEl=null}}
+function gambar(c,v,lm,pc){
+  const w=v.videoWidth||640,h=v.videoHeight||480;if(c.width!==w)c.width=w;if(c.height!==h)c.height=h;
+  const g=c.getContext('2d');g.clearRect(0,0,w,h);if(!lm)return;
+  g.lineWidth=3;g.strokeStyle='#39ff6a';
+  SAMB.forEach(a=>{g.beginPath();g.moveTo(lm[a[0]].x*w,lm[a[0]].y*h);g.lineTo(lm[a[1]].x*w,lm[a[1]].y*h);g.stroke()});
+  lm.forEach((p,i)=>{g.fillStyle=(i===4||i===8)?(pc?'#ffffff':'#39ff6a'):'#b6ffcf';const r=(i===4||i===8)?7:4;g.fillRect(p.x*w-r/2,p.y*h-r/2,r,r)});
+}
+function titikLama(now){for(let i=hist.length-1;i>=0;i--)if(now-hist[i].t>=150)return hist[i];return hist[0]}
+function klikDi(p,now){
+  if(now-lastKlik<700)return;
+  const el=document.elementFromPoint(p.x,p.y),b=el&&el.closest('button');
+  if(b&&!b.disabled){lastKlik=now;letup(p.x,p.y,10);b.click()}
+}
+function gelung(){
+  raf=requestAnimationFrame(gelung);
+  const now=performance.now();if(now-tsA<33||document.hidden)return;tsA=now;
+  const kam=$('#s-kamera').classList.contains('on'),v=kam?$('#v1'):$('#v2'),cv=kam?$('#c1'):$('#c2');
+  if(!hl||v.readyState<2)return;
+  let r;try{r=hl.detectForVideo(v,now)}catch(e){return}
+  const lm=r&&r.landmarks&&r.landmarks[0];
+  const kur=$('#kursor');
+  if(!lm){gambar(cv,v,null,false);tiada++;
+    if(tiada>15){kur.style.display='none';pin=false;hist=[];cx=cy=null;if(hovEl){hovEl.classList.remove('hov');hovEl=null}
+      if(kam)stat('Tiada tangan dikesan. Angkat tangan di hadapan kamera.');$('#st2').textContent='Tiada tangan'}
+    return}
+  tiada=0;
+  /* Kursor: hujung jari telunjuk (titik 8), dicerminkan dan diregangkan supaya sampai ke tepi skrin */
+  const t=lm[8];
+  const nx=Math.min(1,Math.max(0,(1-t.x-.12)/.76)),ny=Math.min(1,Math.max(0,(t.y-.12)/.76));
+  const X=nx*innerWidth,Y=ny*innerHeight;
+  if(cx===null){cx=X;cy=Y}else{cx+=(X-cx)*.4;cy+=(Y-cy)*.4}
+  hist.push({t:now,x:cx,y:cy});while(hist.length&&now-hist[0].t>400)hist.shift();
+  /* Cubitan: jarak ibu jari (4) dengan telunjuk (8) dibahagi saiz tapak tangan */
+  const sc=Math.hypot(lm[0].x-lm[9].x,lm[0].y-lm[9].y)||1;
+  const d=Math.hypot(lm[4].x-lm[8].x,lm[4].y-lm[8].y)/sc,on=AMBANG[S.kep];
+  if(!pin&&d<on){pin=true;bunyi('klik');klikDi(titikLama(now),now)}
+  else if(pin&&d>on+.12)pin=false;
+  gambar(cv,v,lm,pin);
+  kur.style.display='block';kur.classList.toggle('cb',pin);
+  kur.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%)';
+  /* Sorot butang di bawah kursor */
+  const el=document.elementFromPoint(cx,cy),b=el&&el.closest('button:not([disabled])');
+  if(b!==hovEl){if(hovEl)hovEl.classList.remove('hov');if(b)b.classList.add('hov');hovEl=b}
+  const txt=pin?'Cubitan dikesan!':'Tangan Dikesan';
+  $('#st2').textContent=txt;if(kam)stat(txt+(pin?'':'. Cubit untuk memilih.'));
+}
+
+/* ===== Kesan visual ===== */
+function letup(x,y,n){for(let i=0;i<n;i++){const d=document.createElement('div');d.className='px';d.style.left=x+'px';d.style.top=y+'px';d.style.setProperty('--x',(Math.random()*240-120)+'px');d.style.setProperty('--y',(Math.random()*240-120)+'px');document.body.appendChild(d);setTimeout(()=>d.remove(),1000)}}
+function kilat(w){const b=document.body;b.style.setProperty('--k',w);b.classList.remove('kilat');void b.offsetWidth;b.classList.add('kilat')}
+
+/* ===== Logik permainan ===== */
+let Q=[],qi=0,sk=0,bt=0,kunci=false;
+const kocok=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function mulaGame(){Q=kocok(BANK).slice(0,10);qi=0;sk=0;bt=0;show('main');
+  $('#petunjuk').textContent=aktif?'Gerakkan jari telunjuk ke jawapan, kemudian cubit untuk memilih.':'Klik atau sentuh jawapan untuk memilih.';soal()}
+$('#bUlang').onclick=()=>{bunyi('klik');mulaGame()};
+function hud(){$('#hSkor').textContent=sk;$('#hSoal').textContent=(qi+1)+'/'+Q.length;$('#bar i').style.width=(qi/Q.length*100)+'%'}
+function soal(){
+  kunci=false;const q=Q[qi];hud();$('#fb').classList.remove('on','x');
+  $('#tanya').textContent=q.q;
+  const o=$('#ops');o.innerHTML='';
+  kocok(q.o).forEach((t,i)=>{const b=document.createElement('button');b.className='btn op';
+    const h=document.createElement('span');h.textContent='ABCD'[i];b.appendChild(h);b.appendChild(document.createTextNode(t));
+    b.onclick=()=>jawab(b,t===q.b);o.appendChild(b)});
+}
+function jawab(b,ok){
+  if(kunci)return;kunci=true;const q=Q[qi];
+  [...$('#ops').children].forEach(x=>{x.disabled=true;x.classList.remove('hov');if(x.lastChild.textContent===q.b)x.classList.add('bt')});
+  const f=$('#fb');f.classList.toggle('x',!ok);
+  if(ok){sk+=10;bt++;$('#fbt').textContent='BETUL! +10';bunyi('betul');kilat('rgba(57,255,106,.25)');const r=b.getBoundingClientRect();letup(r.left+r.width/2,r.top+r.height/2,26)}
+  else{b.classList.add('sl');$('#fbt').textContent='CUBA LAGI!';bunyi('salah');kilat('rgba(255,122,122,.25)')}
+  $('#hSkor').textContent=sk;
+  $('#fb1').textContent='Jawapan betul: '+q.b;$('#fb2').textContent='Penerangan: '+q.e;
+  const n=$('#nxt');n.textContent=qi>=Q.length-1?'LIHAT KEPUTUSAN':'SOALAN SETERUSNYA';
+  n.onclick=()=>{bunyi('klik');qi++;qi>=Q.length?tamat():soal()};
+  f.classList.add('on');n.scrollIntoView({block:'nearest'});
+}
+function tamat(){
+  show('tamat');bunyi('tamat');const p=bt*10;let g,m;
+  if(p>=90){g='BINTANG TATABAHASA';m='Cemerlang! Anda sangat mahir dalam tatabahasa Bahasa Melayu.'}
+  else if(p>=70){g='PAKAR TATABAHASA';m='Hebat! Sedikit lagi latihan untuk menjadi bintang.'}
+  else if(p>=50){g='PEMBURU TATABAHASA';m='Bagus! Teruskan berlatih dan baca penerangan setiap soalan.'}
+  else{g='PENDEKAR BARU';m='Jangan berputus asa! Cuba lagi, anda pasti bertambah baik.'}
+  $('#skor').textContent=sk;$('#gelar').textContent=g;$('#galak').textContent=m;
+  $('#ringkas').textContent='Betul: '+bt+' | Salah: '+(Q.length-bt)+' | Pencapaian: '+p+'%';
+  if(p>=70)letup(innerWidth/2,innerHeight/3,30);
+}
+tetapan();
+})();
+</script>
+</body>
+</html>
